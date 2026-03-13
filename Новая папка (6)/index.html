@@ -1,0 +1,124 @@
+Ответ Gemini
+Похоже, ты случайно удалил или запутался в структуре HTML. Твой код был немного «разбросан», и в нем дублировались подключения скриптов (вверху и внизу).
+
+Я собрал для тебя полный и чистый файл index.html, где все секции (Корзина, Оплата, Детали товара) стоят на своих местах в правильном порядке.
+
+Полный index.html
+Скопируй это и полностью замени содержимое своего файла:
+
+HTML
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВкусК | Искусство кофе</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+<nav>
+    <a class="logo" href="#">ВкусК</a>
+    <div class="nav-links">
+        <a href="#hero">Главная</a>
+        <a href="#menu">Меню</a>
+        <a href="#order">Заказать</a>
+    </div>
+</nav>
+
+<div class="cart-float" id="cart-float" onclick="openCartModal()">
+    🛒 Корзина: <span id="cart-count">0</span>
+</div>
+
+<div class="modal" id="cart-modal">
+    <div class="modal-content">
+        <span class="close-x" onclick="document.getElementById('cart-modal').style.display='none'">×</span>
+        <h3>Ваш заказ</h3>
+        <div id="cart-items-list" style="margin: 20px 0;"></div>
+        <hr>
+        <p>Итого: <strong id="cart-total">0</strong></p>
+        <button class="add-btn" onclick="openPaymentModal()">Перейти к оплате</button>
+    </div>
+</div>
+
+<div class="modal" id="payment-modal">
+    <div class="modal-content">
+        <span class="close-x" onclick="closePaymentModal()">×</span>
+        <h3>Оплата заказа</h3>
+        <p>Итого к оплате: <strong id="payment-total">0</strong></p>
+        <div style="margin: 20px 0;">
+            <select id="payment-method" style="width:100%; padding:10px; margin-bottom:10px;">
+                <option value="card">Банковская карта</option>
+                <option value="kaspi">Kaspi Pay</option>
+            </select>
+            <input type="number" id="user-balance" placeholder="Ваш баланс (₸)" style="width:100%; padding:10px; margin-bottom:10px;">
+        </div>
+        <button class="add-btn" onclick="processPayment()">Оплатить сейчас</button>
+        <p id="payment-status" style="margin-top:15px; font-weight:600;"></p>
+    </div>
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close-x" onclick="closeModal()">×</span>
+        <img id="modal-img" src="" class="modal-img">
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <div class="modal-footer">
+            <span id="modal-price" class="price"></span>
+            <button class="add-btn" id="modal-add-btn" style="width:auto;">Добавить</button>
+        </div>
+    </div>
+</div>
+
+<section id="hero">
+    <div class="hero-slider-item active" style="background-image:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93')"></div>
+    <div class="hero-slider-item" style="background-image:url('https://images.unsplash.com/photo-1442512595331-e89e73853f31')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>ВкусК</h1>
+        <p>Искусство кофе и нежность десертов</p>
+        <a href="#menu" class="hero-button">Посмотреть меню</a>
+    </div>
+</section>
+
+<section id="menu">
+    <h2>Наше Меню</h2>
+    <div class="filter-btns">
+        <button class="filter-btn active" onclick="filterMenu('all', this)">Все</button>
+        <button class="filter-btn" onclick="filterMenu('кофе', this)">Кофе</button>
+        <button class="filter-btn" onclick="filterMenu('завтрак', this)">Завтраки</button>
+        <button class="filter-btn" onclick="filterMenu('десерт', this)">Десерты</button>
+    </div>
+    <div class="menu-grid" id="menu-grid"></div>
+</section>
+
+<section id="locations">
+    <h2>Наши точки</h2>
+    <div class="location-map" style="width:100%; max-width:900px; margin:auto; border-radius:20px; overflow:hidden; border: 5px solid white;">
+        <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</section>
+
+<section id="order">
+    <h2>Оформить заказ</h2>
+    <form>
+        <input type="text" placeholder="Ваше имя" required>
+        <input type="tel" placeholder="Телефон" required>
+        <textarea placeholder="Комментарий" rows="4"></textarea>
+        <button type="submit" class="add-btn">Подтвердить заказ</button>
+    </form>
+</section>
+
+<script src="js.js"></script>
+</body>
+</html>
+На что обратить внимание:
+Порядок: Теперь все модальные окна находятся вверху тела <body>, а контент — после них. Это делает код аккуратнее.
+
+Скрипт: Убедись, что файл называется именно js.js (так как ты прописал это в теге <script src="js.js">). Если твой файл называется script.js, переименуй его или поправь название в HTML.
+
+Логика: Теперь кнопка "Перейти к оплате" в корзине вызывает функцию openPaymentModal(), которая открывает второе окно.
+
+Теперь у тебя всё на своих местах. Попробуй запустить. Если что-то не открывается, проверь в консоли браузера (F12), нет ли ошибки "file not found" для js.js.ы
